@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analog clock</title>
+  <style>
+    /* body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    } */
+
+    #clock {
+      width: 200px;
+      height: 200px;
+      border: 2px solid #333;
+      border-radius: 50%;
+      position: relative;
+      background-image: url(https://www.shutterstock.com/shutterstock/photos/1383509360/display_1500/stock-photo-abstract-black-brick-wall-texture-for-pattern-background-wide-panorama-picture-1383509360.jpg);
+    }
+
+    .hand {
+      position: absolute;
+      transform-origin: 50% 100%;
+      background-color: white
+    }
+
+    #hour {
+      height: 50px;
+      width: 4px;
+      top: 50px;
+      margin-left: 100px;
+    }
+
+    #minute {
+      height: 70px;
+      width: 3px;
+      top: 30px;
+      margin-left: 100px;
+    }
+
+    #second {
+      height: 80px;
+      width: 2px;
+      margin-left: 100px;
+      top: 20px;
+    }
+
+    #center {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #333;
+      position: absolute;
+      top: 95px;
+      left: 95px;
+    }
+
+    #box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-image: url(https://cdn.pixabay.com/photo/2022/06/03/00/30/room-7239127_1280.jpg);
+    }
+  </style>
+</head>
+<body>
+  <div id="box">
+  <div id="clock">
+    <div id="hour" class="hand"></div>
+    <div id="minute" class="hand"></div>
+    <div id="second" class="hand"></div>
+    <div id="center"></div>
+
+    <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="95" stroke="white" stroke-width="10" fill="none" />
+
+      <text x="50%" y="20%" text-anchor="middle" fill="white" font-size="16px" font-family="Arial" dy=".3em">12</text> 
+      <text x="50%" y="80%" text-anchor="middle" fill="white" font-size="16px" font-family="Arial" dy=".3em">6</text>
+      <text x="20%" y="50%" text-anchor="middle" fill="white" font-size="16px" font-family="Arial" dy=".3em">9</text>
+      <text x="80%" y="50%" text-anchor="middle" fill="white" font-size="16px" font-family="Arial" dy=".3em">3</text>
+    </svg>
+  </div>
+</div>
+  <script>
+    function updateClock() {
+      const now = new Date();
+
+      const hours = now.getHours() % 12;
+      const minutes = now.getMinutes();
+      const seconds = now.getSeconds();
+
+      const hourDeg = (hours + minutes / 60) * 30;
+      const minuteDeg = (minutes + seconds / 60) * 6;
+      const secondDeg = seconds * 6;
+
+      document.getElementById('hour').style.transform = `rotate(${hourDeg}deg)`;
+      document.getElementById('minute').style.transform = `rotate(${minuteDeg}deg)`;
+      document.getElementById('second').style.transform = `rotate(${secondDeg}deg)`;
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock(); // Initial call to set the initial clock state
+  </script>
+</body>
+</html>
